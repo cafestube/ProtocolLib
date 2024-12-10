@@ -78,7 +78,10 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = "ProtocolLib"
+            artifact(tasks["jar"])
+            artifact(tasks["sourcesJar"])
         }
+
         repositories {
             maven {
                 name = "cafestubeRepository"
