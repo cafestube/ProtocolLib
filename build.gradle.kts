@@ -9,7 +9,7 @@ plugins {
     id("io.github.patrick.remapper") version "1.4.1"
 }
 
-group = "com.comphenix.protocol"
+group = "com.comphenix.protocol.cafestube"
 version = "5.4.0-SNAPSHOT"
 description = "Provides access to the Minecraft protocol"
 
@@ -75,21 +75,15 @@ java {
 }
 
 publishing {
-    publications.withType<MavenPublication> {
-        artifactId = "ProtocolLib"
-    }
-
-    repositories {
-        maven {
-            url = if (isSnapshot) {
-                uri("https://repo.dmulloy2.net/repository/snapshots/")
-            } else {
-                uri("https://repo.dmulloy2.net/repository/releases/")
-            }
-
-            credentials {
-                username = System.getenv("NEXUS_USERNAME")
-                password = System.getenv("NEXUS_PASSWORD")
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = "ProtocolLib"
+        }
+        repositories {
+            maven {
+                name = "cafestubeRepository"
+                credentials(PasswordCredentials::class)
+                url = uri("https://repo.cafestu.be/repository/maven-public-snapshots/")
             }
         }
     }
